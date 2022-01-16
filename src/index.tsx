@@ -3,6 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import { ThemeProvider } from '@mui/material';
+// import { createMuiTheme } from '@material-ui/core';
+
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: {
+//       main: ''
+//     }
+//   }
+// });
 
 ReactDOM.render(
   <React.StrictMode>
