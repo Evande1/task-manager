@@ -6,7 +6,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"backend/util"
 	
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -14,9 +16,16 @@ import (
 // ConnectDB : This is helper function to connect mongoDB
 // If you want to export your function. You must to start upper case function name. Otherwise you won't see your function when you import that on other class.
 func ConnectDB() *mongo.Collection {
+	
+	//the input is current directory as main due to the fnc called there
+	config, err := util.LoadConfig(".")
+
+	if err!=nil {
+		log.Fatal("cannot load config", err)
+	}
 
 	// Set client options
-	clientOptions := options.Client().ApplyURI("<database link>")
+	clientOptions := options.Client().ApplyURI(config.DBSource)
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
