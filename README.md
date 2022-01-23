@@ -1,0 +1,1 @@
+add app.env file with DB_SOURCE=mongodb+srv://evan:<password>@task-manager.ttttk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority to the same directory as main.go

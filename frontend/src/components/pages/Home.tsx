@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
-import Task from "../model/task";
-import TaskList from "../Task/TaskList";
+import { useCallback, useEffect, useState } from 'react';
+import Task from '../model/task';
+import TaskList from '../Task/TaskList';
 
-const Current: React.FC = (props) => {
-
+const Home: React.FC = (props) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -12,7 +11,7 @@ const Current: React.FC = (props) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/tasks/priority/2');
+      const response = await fetch('http://localhost:8000/api/tasks');
 
       const data = await response.json();
 
@@ -39,12 +38,12 @@ const Current: React.FC = (props) => {
     fetchTaskHandler();
   }, [fetchTaskHandler]);
 
-    return (
-      <div>
-        <h1>Current hello</h1>
-        <TaskList taskArray={tasks} />
-      </div>
-    );
-  };
+  return (
+    <div>
+      <h1>Home</h1>
+      <TaskList taskArray={tasks} />
+    </div>
+  );
+};
 
-export default Current;
+export default Home;

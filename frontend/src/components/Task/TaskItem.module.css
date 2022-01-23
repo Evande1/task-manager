@@ -1,0 +1,14 @@
+.item {
+    margin: 1rem 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    background-color: #e7dffc;
+    
+  }
+  
+.completed {
+  margin: 1rem 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  background-color: #adf1c7;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
 import BaseTemplate from './components/UI/BaseTemplate';
 import TaskContextProvider from './store/task-context';
@@ -8,6 +8,7 @@ import Current from './components/pages/Current';
 import { Route, Routes } from 'react-router-dom';
 import Optional from './components/pages/Optional';
 import Urgent from './components/pages/Urgent';
+import Home from './components/pages/Home';
 
 // import Box from "@material-ui/core/Box";
 
@@ -29,10 +30,10 @@ function App() {
       </BaseTemplate>
       <h1>hello</h1>
       <Routes>
-        <Route path='/current' element={<Current/>}/>
-        <Route path='/urgent' element={<Urgent/>}/>
-        <Route path='/optional' element={<Optional/>}/>
-        <Route path='/'/>
+        <Route path="/current" element={<Current />} />
+        <Route path="/urgent" element={<Urgent />} />
+        <Route path="/optional" element={<Optional />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </TaskContextProvider>
   );

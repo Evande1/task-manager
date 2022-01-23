@@ -5,21 +5,33 @@ import Modal from '@mui/material/Modal';
 import { TaskContext } from '../../store/task-context';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 
-const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
-  props
-) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [completed, setCompleted] = useState(false);
-  const [priority, setPriority] = useState('');
+const TaskEdit: React.FC<{
+  onHideForm: () => void;
+  open: boolean;
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+  priority: string;
+}> = (props) => {
+  const [title, setTitle] = useState(props.title);
+  const [description, setDescription] = useState(props.description);
+  const [completed, setCompleted] = useState(props.completed);
+  const [priority, setPriority] = useState(props.priority);
+  
 
-  const taskCtx = useContext(TaskContext);
+  const deleteHandler = async (event: React.SyntheticEvent) => {
+    
+    await fetch(
+      'http://localhost:8000/api/tasks/' + props.id, {method:'DELETE'})
+      console.log('deletesuccess');
+  };
 
   const submitHandler = async (event: React.SyntheticEvent) => {
-    // event.preventDefault();
-
+    
+    
     const requestOptions = {
-      method: 'POST',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: title,
@@ -30,10 +42,12 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
     };
 
     const response = await fetch(
-      'http://localhost:8000/api/tasks',
+      'http://localhost:8000/api/tasks/' + props.id,
       requestOptions
     );
     const data = await response.json();
+    console.log('edit');
+    
   };
 
   return (
@@ -56,13 +70,14 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
           p: 4,
         }}
       >
-        <form onSubmit={submitHandler}>
+        <form>
           <div>
             <label htmlFor="title">Title</label>
             <input
               type="text"
               id="title"
               onChange={(e) => setTitle(e.target.value)}
+              value={title}
             />
           </div>
           <div>
@@ -71,6 +86,7 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
               type="text"
               id="description"
               onChange={(e) => setDescription(e.target.value)}
+              value={description}
             />
           </div>
           <div>
@@ -79,6 +95,7 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
               type="checkbox"
               id="completed"
               onChange={(e) => setCompleted(e.target.checked)}
+              checked={completed}
             />
           </div>
           <div>
@@ -92,13 +109,15 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
                   typeof e.target.value === 'string' ? e.target.value : ''
                 )
               }
+              value={priority}
             >
               <MenuItem value={'1'}>Urgent</MenuItem>
               <MenuItem value={'2'}>Current</MenuItem>
               <MenuItem value={'3'}>Optional</MenuItem>
             </Select>
           </div>
-          <button type="submit">Add</button>
+          <button onClick={submitHandler}>Confirm</button>
+          <button onClick={deleteHandler}>Delete</button>
           <button onClick={props.onHideForm}>Cancel</button>
         </form>
       </Box>
@@ -106,4 +125,4 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
   );
 };
 
-export default TaskForm;
+export default TaskEdit;

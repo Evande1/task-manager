@@ -1,11 +1,11 @@
 class Task {
-    id: number;
+    id: string;
     title: string;
     description: string;
     completed: boolean;
-    priority: number;
+    priority: string;
 
-    constructor(id: number, title: string, description: string, completed:boolean, priority: number) {
+    constructor(id: string, title: string, description: string, completed:boolean, priority: string) {
         this.id=id;
         this.title=title;
         this.description=description;

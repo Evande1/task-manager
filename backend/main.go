@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strconv"
+	
 
 	"backend/helper"
 	"backend/models"
@@ -21,6 +21,7 @@ import (
 var collection = helper.ConnectDB()
 
 func getTasks(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	// we created Book array
@@ -62,6 +63,7 @@ func getTasks(w http.ResponseWriter, r *http.Request) {
 
 func getTask(w http.ResponseWriter, r *http.Request) {
 	// set header.
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	var task models.Task
@@ -84,16 +86,17 @@ func getTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func getPriorityTasks(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	// we created Book array
 	var tasks []models.Task
 
 	var params = mux.Vars(r)
-	id, _ := strconv.Atoi(params["id"])
+	id, _ := params["id"]
 	// bson.M{},  we passed empty filter. So we want to get all data.
-	
-	filter := bson.M{"priority":id}
+
+	filter := bson.M{"priority": id}
 	cur, err := collection.Find(context.TODO(), filter)
 
 	if err != nil {
@@ -128,25 +131,30 @@ func getPriorityTasks(w http.ResponseWriter, r *http.Request) {
 }
 
 func createTask(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+	
 	w.Header().Set("Content-Type", "application/json")
+	if r.Method == http.MethodPost {
+	
+		var task models.Task
+		
+		// we decode our body request params
+		_ = json.NewDecoder(r.Body).Decode(&task)
 
-	var task models.Task
+		// insert our task model.
+		result, err := collection.InsertOne(context.TODO(), task)
 
-	// we decode our body request params
-	_ = json.NewDecoder(r.Body).Decode(&task)
+		if err != nil {
+			helper.GetError(err, w)
+			return
+		}
 
-	// insert our task model.
-	result, err := collection.InsertOne(context.TODO(), task)
-
-	if err != nil {
-		helper.GetError(err, w)
-		return
+		json.NewEncoder(w).Encode(result)
 	}
-
-	json.NewEncoder(w).Encode(result)
 }
 
 func updateTask(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	w.Header().Set("Content-Type", "application/json")
 
 	var params = mux.Vars(r)
@@ -155,7 +163,7 @@ func updateTask(w http.ResponseWriter, r *http.Request) {
 	id, _ := primitive.ObjectIDFromHex(params["id"])
 
 	var task models.Task
-	
+
 	// Create filter
 	filter := bson.M{"_id": id}
 
@@ -185,6 +193,7 @@ func updateTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteTask(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
 	// Set header
 	w.Header().Set("Content-Type", "application/json")
 
@@ -207,21 +216,26 @@ func deleteTask(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(deleteResult)
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
+}
+
 func main() {
-    fmt.Println("Hello, World!")
-    //init router
-    r := mux.NewRouter()
-    
-    //arrange routes
+	fmt.Println("Hello, World!")
+	//init router
+	r := mux.NewRouter()
+
+	//arrange routes
 	r.HandleFunc("/api/tasks", getTasks).Methods("GET")
 	r.HandleFunc("/api/tasks/{id}", getTask).Methods("GET")
 	r.HandleFunc("/api/tasks/priority/{id}", getPriorityTasks).Methods("GET")
 
-	r.HandleFunc("/api/tasks", createTask).Methods("POST")
-	r.HandleFunc("/api/tasks/{id}", updateTask).Methods("PUT")
-	r.HandleFunc("/api/tasks/{id}", deleteTask).Methods("DELETE")
-	
-
-  	// set our port address
+	r.HandleFunc("/api/tasks", createTask).Methods("POST", "OPTIONS")
+	r.HandleFunc("/api/tasks/{id}", updateTask).Methods("PUT","OPTIONS")
+	r.HandleFunc("/api/tasks/{id}", deleteTask).Methods("DELETE","OPTIONS")
+	// set our port address
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

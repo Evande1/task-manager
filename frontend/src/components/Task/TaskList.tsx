@@ -2,15 +2,19 @@ import React, { useContext } from 'react';
 import { TaskContext } from '../../store/task-context';
 import Task from '../model/task';
 import TaskItem from './TaskItem';
+import classes from "./TaskList.module.css";
 
-const TaskList: React.FC = (props) => {
+const TaskList: React.FC<{taskArray: Task[]}> = (props) => {
   const taskCtx = useContext(TaskContext);
 
+  
+
   return (
-    <ul>
-      {taskCtx.items.map((item) => (
+    <ul className={classes.list}>
+      {props.taskArray.map((item) => (
         <TaskItem
           key={item.id}
+          id = { item.id}
           title={item.title}
           description={item.description}
           completed={item.completed}

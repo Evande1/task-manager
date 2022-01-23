@@ -32,7 +32,8 @@ const BaseTemplate = ({ children, onShowForm }: BaseTemplateProps) => {
   };
 
   const drawerList = [
-    { text: 'Urgent', icon: <TaskAlt />, link: "/urgent"},
+    { text: 'home', icon: <TaskAlt />, link: "/" },
+    { text: 'urgent', icon: <TaskAlt />, link: "/urgent"},
     { text: 'current', icon: <TaskAlt /> , link: "/current"},
     { text: 'optional', icon: <TaskAlt />, link: "/optional" },
   ];
@@ -69,6 +70,7 @@ const BaseTemplate = ({ children, onShowForm }: BaseTemplateProps) => {
           anchor="left"
           open={openDrawer}
           onClose={(e) => toggleDrawer(false)}
+          onClick={(e) => toggleDrawer(false)}
         >
           <List>
             {drawerList.map((item,index) => {
