@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 
 import Modal from '@mui/material/Modal';
@@ -21,15 +21,19 @@ const TaskEdit: React.FC<{
   
 
   const deleteHandler = async (event: React.SyntheticEvent) => {
-    
+    event.preventDefault();
+
     await fetch(
       'http://localhost:8000/api/tasks/' + props.id, {method:'DELETE'})
       console.log('deletesuccess');
+      window.location.reload();
   };
 
-  const submitHandler = async (event: React.SyntheticEvent) => {
-    
-    
+  const confirmHandler = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+   
+
     const requestOptions = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -47,6 +51,7 @@ const TaskEdit: React.FC<{
     );
     const data = await response.json();
     console.log('edit');
+    window.location.reload();
     
   };
 
@@ -116,7 +121,7 @@ const TaskEdit: React.FC<{
               <MenuItem value={'3'}>Optional</MenuItem>
             </Select>
           </div>
-          <button onClick={submitHandler}>Confirm</button>
+          <button onClick={confirmHandler}>Confirm</button>
           <button onClick={deleteHandler}>Delete</button>
           <button onClick={props.onHideForm}>Cancel</button>
         </form>

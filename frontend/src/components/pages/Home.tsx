@@ -17,6 +17,7 @@ const Home: React.FC = (props) => {
 
       const loadedTasks = [];
 
+
       for (let i = 0; i < data.length; i++) {
         loadedTasks.push(
           new Task(
@@ -29,6 +30,7 @@ const Home: React.FC = (props) => {
         );
       }
       setTasks(loadedTasks);
+      setIsLoading(false);
     } catch (error) {
       setError('error');
     }
@@ -41,7 +43,7 @@ const Home: React.FC = (props) => {
   return (
     <div>
       <h1>Home</h1>
-      <TaskList taskArray={tasks} />
+      {isLoading ? <p>loading</p> : <TaskList taskArray={tasks} />}
     </div>
   );
 };

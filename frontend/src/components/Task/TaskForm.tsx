@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { TaskContext } from '../../store/task-context';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { request } from 'http';
 
 const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
   props
@@ -28,12 +29,13 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
         priority: priority,
       }),
     };
-
+  
     const response = await fetch(
       'http://localhost:8000/api/tasks',
       requestOptions
     );
     const data = await response.json();
+    
   };
 
   return (
