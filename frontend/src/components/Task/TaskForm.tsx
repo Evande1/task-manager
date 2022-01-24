@@ -27,7 +27,7 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
     };
   
     const response = await fetch(
-      `${process.env.REACT_APP_API_END_POINT}/api/tasks`,
+      `${process.env.REACT_APP_API_END_POINT}/tasks`,
       requestOptions
     );
     const data = await response.json();

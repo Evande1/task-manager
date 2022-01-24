@@ -11,7 +11,7 @@ const Optional: React.FC = (props) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/api/tasks/priority/3`);
+      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/tasks/priority/3`);
 
       const data = await response.json();
 

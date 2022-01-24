@@ -24,7 +24,7 @@ const TaskEdit: React.FC<{
     event.preventDefault();
 
     await fetch(
-      `${process.env.REACT_APP_API_END_POINT}api/tasks/` + props.id, {method:'DELETE'})
+      `${process.env.REACT_APP_API_END_POINT}/tasks/` + props.id, {method:'DELETE'})
       console.log('deletesuccess');
       window.location.reload();
   };
@@ -46,7 +46,7 @@ const TaskEdit: React.FC<{
     };
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_END_POINT}/api/tasks/` + props.id,
+      `${process.env.REACT_APP_API_END_POINT}/tasks/` + props.id,
       requestOptions
     );
     const data = await response.json();

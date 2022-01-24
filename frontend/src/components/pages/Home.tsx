@@ -9,7 +9,7 @@ const Home: React.FC = (props) => {
   const fetchTaskHandler = useCallback(async () => {
     
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/api/tasks`);
+      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/tasks`);
 
       const data = await response.json();
 
