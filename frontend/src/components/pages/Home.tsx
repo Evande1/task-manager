@@ -4,14 +4,12 @@ import TaskList from '../Task/TaskList';
 
 const Home: React.FC = (props) => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   const fetchTaskHandler = useCallback(async () => {
-    setIsLoading(true);
-
+    
     try {
-      const response = await fetch('http://localhost:8000/api/tasks');
+      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/api/tasks`);
 
       const data = await response.json();
 
@@ -30,7 +28,6 @@ const Home: React.FC = (props) => {
         );
       }
       setTasks(loadedTasks);
-      setIsLoading(false);
     } catch (error) {
       setError('error');
     }
@@ -43,7 +40,7 @@ const Home: React.FC = (props) => {
   return (
     <div>
       <h1>Home</h1>
-      {isLoading ? <p>loading</p> : <TaskList taskArray={tasks} />}
+      <TaskList taskArray={tasks} />
     </div>
   );
 };

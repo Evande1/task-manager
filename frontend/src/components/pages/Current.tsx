@@ -10,9 +10,9 @@ const Current: React.FC = (props) => {
 
   const fetchTaskHandler = useCallback(async () => {
     setIsLoading(true);
-
+    
     try {
-      const response = await fetch('http://localhost:8000/api/tasks/priority/2');
+      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/api/tasks/priority/2`);
 
       const data = await response.json();
 

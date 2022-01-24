@@ -12,7 +12,7 @@ const Urgent: React.FC = (props) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/tasks/priority/1');
+      const response = await fetch(`${process.env.REACT_APP_API_END_POINT}/api/tasks/priority/1`);
 
       const data = await response.json();
 

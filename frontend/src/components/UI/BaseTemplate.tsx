@@ -15,7 +15,7 @@ import React, {
 } from 'react';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { AddCircle, TaskAlt } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 

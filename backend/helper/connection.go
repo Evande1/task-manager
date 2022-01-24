@@ -13,8 +13,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// ConnectDB : This is helper function to connect mongoDB
-// If you want to export your function. You must to start upper case function name. Otherwise you won't see your function when you import that on other class.
+// ConnectDB :helper function to connect mongoDB
+// fnc in caps to be exported to main
 func ConnectDB() *mongo.Collection {
 	
 	//the input is current directory as main due to the fnc called there
@@ -48,7 +48,6 @@ type ErrorResponse struct {
 }
 
 // GetError : This is helper function to prepare error model.
-// If you want to export your function. You must to start upper case function name. Otherwise you won't see your function when you import that on other class.
 func GetError(err error, w http.ResponseWriter) {
 
 	log.Fatal(err.Error())

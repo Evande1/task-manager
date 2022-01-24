@@ -1,10 +1,8 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, {  useState } from 'react';
 import Box from '@mui/material/Box';
-
 import Modal from '@mui/material/Modal';
-import { TaskContext } from '../../store/task-context';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
-import { request } from 'http';
+
 
 const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
   props
@@ -13,8 +11,6 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
   const [description, setDescription] = useState('');
   const [completed, setCompleted] = useState(false);
   const [priority, setPriority] = useState('');
-
-  const taskCtx = useContext(TaskContext);
 
   const submitHandler = async (event: React.SyntheticEvent) => {
     // event.preventDefault();
@@ -31,7 +27,7 @@ const TaskForm: React.FC<{ onHideForm: () => void; open: boolean}> = (
     };
   
     const response = await fetch(
-      'http://localhost:8000/api/tasks',
+      `${process.env.REACT_APP_API_END_POINT}/api/tasks`,
       requestOptions
     );
     const data = await response.json();

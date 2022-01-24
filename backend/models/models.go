@@ -7,5 +7,5 @@ type Task struct {
 	Title       string             `json:"title" bson:"title,omitempty"`
 	Description string             `json:"description" bson:"description,omitempty"`
 	Completed   bool               `json:"completed" bson:"completed,omitempty"`
-	Priority    string                `json:"priority" bson:"priority,omitempty"`
+	Priority    string             `json:"priority" bson:"priority,omitempty"`
 }

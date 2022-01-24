@@ -5,9 +5,6 @@ import TaskItem from './TaskItem';
 import classes from "./TaskList.module.css";
 
 const TaskList: React.FC<{taskArray: Task[]}> = (props) => {
-  const taskCtx = useContext(TaskContext);
-
-  
 
   return (
     <ul className={classes.list}>

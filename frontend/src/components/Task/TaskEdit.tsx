@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import Modal from '@mui/material/Modal';
-import { TaskContext } from '../../store/task-context';
+
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 
 const TaskEdit: React.FC<{
@@ -24,7 +24,7 @@ const TaskEdit: React.FC<{
     event.preventDefault();
 
     await fetch(
-      'http://localhost:8000/api/tasks/' + props.id, {method:'DELETE'})
+      `${process.env.REACT_APP_API_END_POINT}api/tasks/` + props.id, {method:'DELETE'})
       console.log('deletesuccess');
       window.location.reload();
   };
@@ -46,7 +46,7 @@ const TaskEdit: React.FC<{
     };
 
     const response = await fetch(
-      'http://localhost:8000/api/tasks/' + props.id,
+      `${process.env.REACT_APP_API_END_POINT}/api/tasks/` + props.id,
       requestOptions
     );
     const data = await response.json();

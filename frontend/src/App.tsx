@@ -28,7 +28,6 @@ function App() {
       <BaseTemplate onShowForm={showFormHandler}>
         <TaskForm open={formIsShown} onHideForm={hideFormHandler} />
       </BaseTemplate>
-      <h1>hello</h1>
       <Routes>
         <Route path="/current" element={<Current />} />
         <Route path="/urgent" element={<Urgent />} />

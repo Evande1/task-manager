@@ -5,8 +5,7 @@ import (
 )
 
 
-//store all configuration of app
-//values read by biper from a config file
+// values read by biper from a config file
 type Config struct {
 	
 	//to unmarshall files, viper uses a map structure
