@@ -41,7 +41,7 @@ const Current: React.FC = (props) => {
 
     return (
       <div>
-        <h1>Current hello</h1>
+        <h1>Current</h1>
         <TaskList taskArray={tasks} />
       </div>
     );

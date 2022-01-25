@@ -87,11 +87,11 @@ const TaskEdit: React.FC<{
           </div>
           <div>
             <label htmlFor="description">Description</label>
-            <input
-              type="text"
+            <textarea
               id="description"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
+              
             />
           </div>
           <div>

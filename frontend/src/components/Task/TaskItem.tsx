@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import TaskEdit from './TaskEdit';
 import classes from './TaskItem.module.css';
+import Button from 'react-bootstrap/Button';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const TaskItem: React.FC<{
     id: string;
@@ -33,7 +35,7 @@ const TaskItem: React.FC<{
       />
       <li className={props.completed ? classes.completed : classes.item}>
         {props.title}
-        <button onClick={showEditHandler}>Edit</button>
+        <Button variant ="outline-success" onClick={showEditHandler}>Edit</Button>
       </li>
     </div>
   );
