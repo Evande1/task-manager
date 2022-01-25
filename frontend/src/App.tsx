@@ -9,7 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import Optional from './components/pages/Optional';
 import Urgent from './components/pages/Urgent';
 import Home from './components/pages/Home';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import Box from "@material-ui/core/Box";
 
 function App() {

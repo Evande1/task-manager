@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 
 import Modal from '@mui/material/Modal';
 
-import { InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 
 const TaskEdit: React.FC<{
   onHideForm: () => void;
@@ -76,7 +76,77 @@ const TaskEdit: React.FC<{
         }}
       >
         <form>
-          <div>
+        <Box
+            sx={{
+              marginBottom: '0.5rem',
+            }}
+          >
+            <TextField
+              required
+              label="Title"
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
+            />
+          </Box>
+          <Box
+            sx={{
+              marginBottom: '0.5rem',
+            }}
+          >
+            <TextField
+              required
+              label="Description"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
+          </Box>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox onChange={(e) => setCompleted(e.target.checked)} checked={completed} />
+              }
+              label="Completed"
+            />
+          </FormGroup>
+          <FormControl fullWidth>
+            <InputLabel id="priority">Priority</InputLabel>
+            <Select
+              labelId="priority"
+              onChange={(
+                e: React.ChangeEvent<{ name?: string; value: unknown }>
+              ) =>
+                setPriority(
+                  typeof e.target.value === 'string' ? e.target.value : ''
+                )
+              }
+              value={priority}
+            >
+              <MenuItem value={'1'}>Urgent</MenuItem>
+              <MenuItem value={'2'}>Current</MenuItem>
+              <MenuItem value={'3'}>Optional</MenuItem>
+            </Select>
+          </FormControl>
+          <Box
+            sx={{
+              marginTop: '1.5rem',
+              display: 'flex'
+            }}
+          >
+            <Box sx={{ marginRight: '0.5rem'}}>
+            <Button variant="outlined" onClick={confirmHandler}>
+              Confirm
+            </Button>
+            </Box>
+            <Box sx={{ marginRight: '0.5rem'}}>
+            <Button variant="outlined" onClick={deleteHandler}>
+              Delete
+            </Button>
+            </Box>
+            <Button variant="outlined" onClick={props.onHideForm}>
+              Cancel
+            </Button>
+          </Box>
+          {/* <div>
             <label htmlFor="title">Title</label>
             <input
               type="text"
@@ -123,7 +193,7 @@ const TaskEdit: React.FC<{
           </div>
           <button onClick={confirmHandler}>Confirm</button>
           <button onClick={deleteHandler}>Delete</button>
-          <button onClick={props.onHideForm}>Cancel</button>
+          <button onClick={props.onHideForm}>Cancel</button> */}
         </form>
       </Box>
     </Modal>
